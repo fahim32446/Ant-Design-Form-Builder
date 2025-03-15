@@ -63,11 +63,7 @@
 
 // export default Test;
 
-import React from 'react';
-
-type Props = {};
-
-const Test = (props: Props) => {
+const Test = () => {
   return <div>Test</div>;
 };
 
