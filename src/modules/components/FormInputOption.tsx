@@ -1,35 +1,9 @@
-import {
-  Col,
-  Divider,
-  Form,
-  Input,
-  Row,
-  Select,
-  Slider,
-  SliderSingleProps,
-} from 'antd';
+import { Card, Col, Form, Input, Row, Select, Slider, SliderSingleProps } from 'antd';
 import { FormProps, useForm } from 'antd/es/form/Form';
-import React, { useEffect } from 'react';
-import { IFormState } from '../home/Home';
-
-export interface IOptionSubmit {
-  placeholder?: string;
-  name?: string;
-  label?: string;
-  required?: false;
-  className?: string;
-  col?: number;
-}
-
-// export interface IFieldOption extends IOptionSubmit {
-//   id: string;
-// }
-
-type Props = {
-  formItems: IFormState[];
-  setFormItems: React.Dispatch<React.SetStateAction<IFormState[]>>;
-  activeId: string | undefined;
-};
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { setFormItemsChange } from '../../utils/redux/slice/formInformation.slice';
+import { IFormState, IOptionSubmit } from '../../type/FormType.interface';
 
 const marks: SliderSingleProps['marks'] = {
   4: '4',
@@ -40,7 +14,11 @@ const marks: SliderSingleProps['marks'] = {
   24: '24',
 };
 
-const FormInputOption = ({ formItems, setFormItems, activeId }: Props) => {
+const FormInputOption = () => {
+  const dispatch = useAppDispatch();
+  const formItems = useAppSelector((state) => state.filed.formItems);
+  const activeId = useAppSelector((state) => state.filed.activeId);
+
   const [optionForm] = useForm<IOptionSubmit>();
 
   const selected = formItems.find((item) => item.id === activeId);
@@ -54,17 +32,8 @@ const FormInputOption = ({ formItems, setFormItems, activeId }: Props) => {
         placeholder: e.placeholder,
         type: selected?.type!,
       };
-      setFormItems((prev) => {
-        const prevOptions = prev || [];
-        const exists = prevOptions.some((option) => option.id === activeId);
-        if (exists) {
-          return prevOptions.map((option) =>
-            option.id === activeId ? { ...option, ...body } : option
-          );
-        } else {
-          return [...prevOptions, body];
-        }
-      });
+
+      dispatch(setFormItemsChange(body));
     }
   };
 
@@ -75,15 +44,14 @@ const FormInputOption = ({ formItems, setFormItems, activeId }: Props) => {
   }, [selected]);
 
   return (
-    <>
-      <Divider
-        orientation='left'
-        style={{ margin: '0px 0px 15px 0px' }}
-        orientationMargin={0}
-      >
-        Filed setting
-      </Divider>
-
+    <Card
+      title={'Filed setting'}
+      size='small'
+      styles={{
+        body: { background: 'rgb(60, 179, 113, 0.1)' },
+        header: { background: 'rgb(60, 179, 113, 0.5)' },
+      }}
+    >
       <Form
         onValuesChange={(_, changes) => optionSubmit(changes)}
         form={optionForm}
@@ -91,14 +59,8 @@ const FormInputOption = ({ formItems, setFormItems, activeId }: Props) => {
       >
         <Row gutter={[12, 0]}>
           <Col lg={24}>
-            <Form.Item<IOptionSubmit> label='Adjust field size:' name={'col'}>
-              <Slider
-                marks={marks}
-                defaultValue={12}
-                min={4}
-                max={24}
-                step={2}
-              />
+            <Form.Item<IOptionSubmit> label='Adjust field size:' name={'col'} initialValue={12}>
+              <Slider marks={marks} min={4} max={24} step={2} />
             </Form.Item>
           </Col>
 
@@ -136,7 +98,7 @@ const FormInputOption = ({ formItems, setFormItems, activeId }: Props) => {
           </Col>
         </Row>
       </Form>
-    </>
+    </Card>
   );
 };
 

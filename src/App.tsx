@@ -8,7 +8,6 @@ import { AppHeader } from './ui/AppHeader';
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
 const App = () => {
-  // Theme state logic
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -19,7 +18,6 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    document.body.className = isDarkMode ? 'dark-theme' : 'light-theme';
   }, [isDarkMode]);
 
   const toggleTheme = () => {
@@ -41,9 +39,7 @@ const App = () => {
         components: {
           Layout: {
             headerBg: isDarkMode ? '#141414' : '#ffffff',
-            headerColor: isDarkMode
-              ? 'rgba(255, 255, 255, 0.85)'
-              : 'rgba(0, 0, 0, 0.85)',
+            headerColor: isDarkMode ? 'rgba(255, 255, 255, 0.85)' : 'rgba(0, 0, 0, 0.85)',
           },
         },
       }}
@@ -60,7 +56,6 @@ const App = () => {
         >
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/support' element={<Home />} />
           </Routes>
         </Content>
       </Layout>

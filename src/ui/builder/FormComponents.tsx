@@ -1,15 +1,5 @@
 import { Button, Card, Space } from 'antd';
-
-export const componentTypes = {
-  TEXT: 'text',
-  NUMBER: 'number',
-  SELECT: 'select',
-  SWITCH: 'switch',
-  DATE: 'date',
-} as const;
-
-export type IComponentType =
-  (typeof componentTypes)[keyof typeof componentTypes];
+import { componentTypes, IComponentType } from '../../type/FormType.interface';
 
 interface IProps {
   handleAddComponent: (type: IComponentType) => void;

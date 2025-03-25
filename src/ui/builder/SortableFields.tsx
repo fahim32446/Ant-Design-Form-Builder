@@ -13,8 +13,10 @@ import {
   Switch,
   Typography,
 } from 'antd';
-import { IFormState, IPreview } from '../../modules/home/Home';
-import { componentTypes, IComponentType } from './FormComponents';
+
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { setActiveId } from '../../utils/redux/slice/formInformation.slice';
+import { componentTypes, IComponentType, IPreview } from '../../type/FormType.interface';
 const { Option } = Select;
 const { Text } = Typography;
 
@@ -22,57 +24,37 @@ interface IProps {
   id: string;
   type?: IComponentType;
   onRemove: (id: string) => void;
-  onEdit: (id: string) => void;
-  formItems: IFormState[];
-  activeId: string | undefined;
   preview: IPreview;
 }
 
-export const SortableFormItem = ({
-  id,
-  type,
-  onRemove,
-  onEdit,
-  formItems,
-  activeId,
-  preview,
-}: IProps) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+export const SortableFields = ({ id, type, onRemove, preview }: IProps) => {
+  const dispatch = useAppDispatch();
+  const formItems = useAppSelector((state) => state.filed.formItems);
+  const activeId = useAppSelector((state) => state.filed.activeId);
+
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const selectedFiled = formItems?.find((item) => item.id === id);
   const active = activeId === id;
 
-  const {
-    className,
-    label,
-    name,
-    placeholder,
-    required,
-    col = 12,
-  } = selectedFiled || {};
+  const { className, label, name, placeholder, required, col = 12 } = selectedFiled || {};
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
-  // Render different form components based on type
   const renderFormComponent = () => {
     switch (type) {
       case componentTypes.TEXT:
         return <Input placeholder={placeholder} className={className} />;
       case componentTypes.NUMBER:
         return (
-          <InputNumber
-            placeholder={placeholder}
-            style={{ width: '100%' }}
-            className={className}
-          />
+          <InputNumber placeholder={placeholder} style={{ width: '100%' }} className={className} />
         );
       case componentTypes.SELECT:
         return (
-          <Select className={className} placeholder={placeholder}>
+          <Select className={className} placeholder={placeholder} allowClear>
             <Option value='option1'>Option 1</Option>
             <Option value='option2'>Option 2</Option>
             <Option value='option3'>Option 3</Option>
@@ -82,11 +64,7 @@ export const SortableFormItem = ({
         return <Switch className={className} />;
       case componentTypes.DATE:
         return (
-          <DatePicker
-            className={className}
-            style={{ width: '100%' }}
-            placeholder={placeholder}
-          />
+          <DatePicker className={className} style={{ width: '100%' }} placeholder={placeholder} />
         );
       default:
         return null;
@@ -102,6 +80,11 @@ export const SortableFormItem = ({
       </Col>
     );
 
+  const onEdit = (id: string) => {
+    if (activeId == id) return dispatch(setActiveId(undefined));
+    dispatch(setActiveId(id));
+  };
+
   return (
     <Col lg={col}>
       <div ref={setNodeRef} style={style}>
@@ -111,9 +94,7 @@ export const SortableFormItem = ({
           }}
           title={
             <div {...attributes} {...listeners}>
-              <Text strong>
-                {type!.charAt(0).toUpperCase() + type!.slice(1)} Component
-              </Text>
+              <Text strong>{type!.charAt(0).toUpperCase() + type!.slice(1)} Component</Text>
             </div>
           }
           size='small'
@@ -128,12 +109,7 @@ export const SortableFormItem = ({
               >
                 Edit
               </Button>
-              <Button
-                size='small'
-                type='text'
-                danger
-                onClick={() => onRemove(id)}
-              >
+              <Button size='small' type='text' danger onClick={() => onRemove(id)}>
                 Remove
               </Button>
             </Space>

@@ -8,44 +8,35 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { Button, Card, Col, Divider, Form, Input, Row, Segmented, Space, Typography } from 'antd';
-import { FormLayout, useForm } from 'antd/es/form/Form';
+import { Card, Col, Divider, Form, Input, Row, Segmented, Typography } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 import { useState } from 'react';
-import { FormComponents, IComponentType } from '../../ui/builder/FormComponents';
-import { SortableFormItem } from '../../ui/builder/SortableFormItem';
+import { IComponentType, IFormSetting, IPreview } from '../../type/FormType.interface';
+import { FormComponents } from '../../ui/builder/FormComponents';
+import { SortableFields } from '../../ui/builder/SortableFields';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import {
+  addComponent,
+  removeComponent,
+  setReorder,
+} from '../../utils/redux/slice/formInformation.slice';
 import Code from '../components/Code';
-import FormInputOption, { IOptionSubmit } from '../components/FormInputOption';
+import FormInputOption from '../components/FormInputOption';
 import FormSetting from '../components/FormSetting';
 
 const { Title, Text } = Typography;
 
-export interface IFormState extends IOptionSubmit {
-  id: string;
-  type: IComponentType;
-}
-
-export interface IFormSetting {
-  layout?: FormLayout;
-  variant?: 'outlined' | 'borderless' | 'filled' | 'underlined' | undefined;
-  labelAlign?: 'left' | 'right';
-  size?: 'small' | 'middle' | 'large';
-  colon?: boolean;
-  labelWrap?: boolean;
-}
-
-export type IPreview = 'PLAYGROUND' | 'PREVIEW' | 'CODE';
-
 const App = () => {
-  const [formItems, setFormItems] = useState<IFormState[]>([]);
+  const dispatch = useAppDispatch();
+  const formItems = useAppSelector((state) => state.filed.formItems);
+  const activeId = useAppSelector((state) => state.filed.activeId);
+
   const [formName, setFormName] = useState('New Form');
   const [preview, setPreview] = useState<IPreview>('PLAYGROUND');
-
-  const [activeId, setActiveId] = useState<string>();
 
   const [formSetting, setFormSetting] = useState<IFormSetting>({
     layout: 'vertical',
@@ -66,49 +57,21 @@ const App = () => {
   );
 
   const handleAddComponent = (type: IComponentType) => {
-    const newItem: IFormState = {
-      id: `${type}-${Date.now()}`,
-      type: type,
-      col: 12,
-      label: 'Field',
-    };
-    setFormItems([...formItems, newItem]);
+    dispatch(addComponent(type));
   };
 
   const handleRemoveComponent = (id: string) => {
-    setFormItems(formItems.filter((item) => item.id !== id));
-  };
-
-  const handleEditComponent = (id: string) => {
-    if (activeId == id) return setActiveId(undefined);
-    setActiveId(id);
+    dispatch(removeComponent(id));
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
+    console.log({ active, over });
+
     if (active.id !== over?.id) {
-      setFormItems((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over?.id);
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      dispatch(setReorder({ activeId: active.id, overId: over?.id }));
     }
-  };
-
-  const generateFormJSON = () => {
-    const formConfig = {
-      name: formName,
-      fields: formItems.map((item, index) => ({
-        id: item.id,
-        type: item.type,
-        order: index,
-      })),
-    };
-
-    console.log('Form JSON:', formConfig);
-    return formConfig;
   };
 
   const [mainForm] = useForm();
@@ -150,7 +113,7 @@ const App = () => {
             }
           >
             {preview === 'CODE' ? (
-              <Code formItems={formItems} />
+              <Code />
             ) : (
               <DndContext
                 sensors={sensors}
@@ -173,14 +136,11 @@ const App = () => {
                     <Row gutter={[12, 12]}>
                       {formItems.length > 0 ? (
                         formItems.map((item) => (
-                          <SortableFormItem
+                          <SortableFields
                             key={item.id}
                             id={item.id}
                             type={item.type}
                             onRemove={handleRemoveComponent}
-                            onEdit={handleEditComponent}
-                            formItems={formItems}
-                            activeId={activeId}
                             preview={preview}
                           />
                         ))
@@ -199,23 +159,11 @@ const App = () => {
 
         <Col span={6}>
           <Card size='small' title='Customize your form'>
-            {activeId ? (
-              <FormInputOption
-                formItems={formItems}
-                setFormItems={setFormItems}
-                activeId={activeId}
-              />
-            ) : undefined}
+            {activeId ? <FormInputOption /> : undefined}
             <FormSetting setFormSetting={setFormSetting} formSetting={formSetting} />
           </Card>
         </Col>
       </Row>
-      <Space>
-        <Button>Cancel</Button>
-        <Button type='primary' onClick={generateFormJSON}>
-          Save Form
-        </Button>
-      </Space>
     </div>
   );
 };

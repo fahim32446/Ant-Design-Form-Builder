@@ -1,7 +1,7 @@
 import { Divider, Form, Row } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { IFormSetting } from '../home/Home';
 import { FormInputRadio } from './FormItem';
+import { IFormSetting } from '../../type/FormType.interface';
 
 type Props = {
   setFormSetting: React.Dispatch<React.SetStateAction<IFormSetting>>;
@@ -13,11 +13,7 @@ const FormSetting = ({ setFormSetting, formSetting }: Props) => {
 
   return (
     <>
-      <Divider
-        orientation='left'
-        style={{ marginTop: '20px' }}
-        orientationMargin={0}
-      >
+      <Divider orientation='left' style={{ marginTop: '20px' }} orientationMargin={0}>
         Form setting
       </Divider>
 

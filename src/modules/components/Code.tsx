@@ -1,12 +1,10 @@
 import { Button } from 'antd';
 import { useState } from 'react';
-import { IFormState } from '../home/Home';
+import { useAppSelector } from '../../utils/hooks';
 
-type Props = {
-  formItems: IFormState[];
-};
+const Code = () => {
+  const formItems = useAppSelector((state) => state.filed.formItems);
 
-const Code = ({ formItems }: Props) => {
   const generatedCode = `
     import { Col, DatePicker, Form, Input, InputNumber, Row, Select, Switch } from 'antd';
     import { useForm } from 'antd/es/form/Form';
