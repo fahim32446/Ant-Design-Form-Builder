@@ -1,54 +1,57 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 📝 Form Builder with Ant Design
 
-Currently, two official plugins are available:
+A powerful and easy-to-use **Form Builder** built using **React** and **Ant Design**. This tool allows users to create dynamic forms with drag-and-drop functionality, customize form fields, and preview the generated form before exporting.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 📌 **Drag & Drop** form components
+- 🎨 **Customizable fields** (labels, placeholders, required fields, etc.)
+- 📅 **Supports various input types** (Text, Number, Select Dropdown, Switch, Date Picker)
+- 🎭 **Live Preview** of the form
+- 🏗 **Different layout options** (Horizontal, Vertical, Inline)
+- 🎨 **Styling options** (Outlined, Borderless, Filled)
+- 🔧 **Field size adjustments**
+- ⚙ **Export form configurations** for further use
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🖥️ UI Preview
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+![Form Builder UI](./image.png)
+
+## 🛠️ Installation
+
+Clone the repository
+
+Install dependencies:
+
+```sh
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```sh
+npm run dev
 ```
+
+## 🏗️ Usage
+
+1. Drag form components from the sidebar.
+2. Customize each field using the settings panel.
+3. Preview the form before exporting.
+4. Export the form configuration for further integration.
+
+## 📦 Technologies Used
+
+- **React** (Frontend framework)
+- **Ant Design** (UI Components)
+- **React DnD** (Drag and drop functionality)
+
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+You can modify it to fit your needs. Let me know if you need any additions! 🚀
