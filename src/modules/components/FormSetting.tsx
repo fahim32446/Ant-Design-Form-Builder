@@ -1,6 +1,6 @@
 import { Divider, Form, Row } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { FormInputRadio } from './FormItem';
+import { FormInputRadio } from './CommonFormItem';
 import { IFormSetting } from '../../type/FormType.interface';
 
 type Props = {
@@ -20,8 +20,8 @@ const FormSetting = ({ setFormSetting, formSetting }: Props) => {
       <Form
         colon={false}
         form={form}
-        size='small'
         layout='inline'
+        size='small'
         onValuesChange={(_, changes) =>
           setFormSetting((prev) => {
             return { ...prev, ...changes };

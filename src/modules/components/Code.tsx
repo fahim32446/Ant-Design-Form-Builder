@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Flex } from 'antd';
 import { useState } from 'react';
 import { useAppSelector } from '../../utils/hooks';
 
@@ -6,7 +6,14 @@ const Code = () => {
   const formItems = useAppSelector((state) => state.filed.formItems);
 
   const generatedCode = `
-    import { Col, DatePicker, Form, Input, InputNumber, Row, Select, Switch } from 'antd';
+    import 
+    { Col, DatePicker, Form,
+      Input, InputNumber, Row, 
+      Select, Switch, Radio,
+      Rate, Flex, Button, Card
+    }
+    from 'antd';
+
     import { useForm } from 'antd/es/form/Form';
 
     const MyForm = () => {
@@ -17,15 +24,15 @@ const Code = () => {
       };
 
       return (
+      <Card style={{ maxWidth: 950, margin: '0px auto' }}>
         <Form form={form} onFinish={submit} layout="vertical">
           <Row gutter={16}>
             ${formItems
               .map(
-                (item) => `
-                <Col lg={${item.col || 24}}>
+                (item) => `<Col lg={${item.col || 24}}>
                   <Form.Item
                     label={"${item.label}"}
-                    name={"${item.name}"}
+                    ${item.name ? `name={"${item.name}"}` : ''}
                     ${
                       item.required
                         ? `rules={[{ required: true, message: '${item.label} is required' }]}`
@@ -42,16 +49,41 @@ const Code = () => {
                             item.placeholder ? `placeholder="${item.placeholder}"` : ''
                           } ${item.className ? `className="${item.className}"` : ''} />`
                         : item.type === 'select'
-                        ? `<Select options={[]} ${
-                            item.placeholder ? `placeholder="${item.placeholder}"` : ''
-                          } ${item.className ? `className="${item.className}"` : ''} />`
+                        ? `<Select options={[
+                            {
+                              label: 'Option 1',
+                              value: 'option-1',
+                            },
+                            {
+                              label: 'Option 2',
+                              value: 'option-2',
+                            },
+                            {
+                              label: 'Option 3',
+                              value: 'option-3',
+                            },
+                        ]} ${item.placeholder ? `placeholder="${item.placeholder}"` : ''} ${
+                            item.className ? `className="${item.className}"` : ''
+                          } />`
                         : item.type === 'switch'
                         ? '<Switch />'
                         : item.type === 'date'
                         ? `<DatePicker style={{ width: "100%" }} ${
                             item.placeholder ? `placeholder="${item.placeholder}"` : ''
                           } ${item.className ? `className="${item.className}"` : ''} />`
-                        : ''
+                        : item.type === 'text_area'
+                        ? `<Input.TextArea ${
+                            item.placeholder ? `placeholder="${item.placeholder}"` : ''
+                          } ${item.className ? `className="${item.className}"` : ''} />`
+                        : item.type === 'radio'
+                        ? `<Radio.Group options={[
+                            { value: 'option-1', label: 'Option-1' },
+                            { value: 'option-2', label: 'Option-2' },
+                            { value: 'option-3', label: 'Option-3' },
+                          ]} />`
+                        : item.type === 'rate'
+                        ? `<Rate ${item.className ? `className="${item.className}"` : ''} />`
+                        : ``
                     }
                   </Form.Item>
                 </Col>
@@ -59,10 +91,16 @@ const Code = () => {
               )
               .join('')}
           </Row>
+          <Flex justify='end'>
+            <Button htmlType='submit' type='primary'>
+              Submit
+            </Button>
+          </Flex>
         </Form>
+      </Card>
       );
     };
-  `;
+  export default MyForm;`;
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -74,73 +112,16 @@ const Code = () => {
 
   return (
     <div>
+      <Flex justify='end'>
+        <Button size='small' type='primary' onClick={copyToClipboard} style={{ marginTop: '10px' }}>
+          {copied ? 'Copied!' : 'Copy Code'}
+        </Button>
+      </Flex>
       <pre>
         <code>{generatedCode}</code>
       </pre>
-      <Button type='primary' onClick={copyToClipboard} style={{ marginTop: '10px' }}>
-        {copied ? 'Copied!' : 'Copy Code'}
-      </Button>
     </div>
   );
 };
 
 export default Code;
-
-// export const dummy = [
-//   {
-//     id: 'text-1742053633691',
-//     type: 'text',
-//     col: 18,
-//     label: 'Your name:',
-//     name: 'name',
-//     placeholder: 'Provide your name',
-//     required: true,
-//     className: 'input',
-//   },
-//   {
-//     id: 'number-1742054061334',
-//     type: 'number',
-//     col: 24,
-//     label: 'Monthly Income',
-//     name: 'income',
-//     placeholder: 'Provide your monthly income',
-//     required: true,
-//     className: 'input',
-//   },
-//   {
-//     id: 'select-1742054067525',
-//     type: 'select',
-//     col: 24,
-//     label: 'Job type',
-//     name: 'job_type',
-//     placeholder: 'Provide your job type',
-//     required: true,
-//     className: 'input',
-//   },
-//   {
-//     id: 'switch-1742054071053',
-//     type: 'switch',
-//     col: 12,
-//     label: 'Govt job ?',
-//     name: 'govt_job',
-//     className: 'input',
-//   },
-//   {
-//     id: 'switch-1742054076981',
-//     type: 'switch',
-//     col: 12,
-//     label: '10 years plus ?',
-//     name: '10_years_plus',
-//     className: 'input',
-//   },
-//   {
-//     id: 'date-1742054081957',
-//     type: 'date',
-//     col: 12,
-//     label: 'Start date',
-//     name: 'start_date',
-//     placeholder: 'Your job start date',
-//     required: true,
-//     className: 'input',
-//   },
-// ];

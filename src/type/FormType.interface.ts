@@ -31,7 +31,7 @@ export const componentTypes = {
   SELECT: 'select',
   SWITCH: 'switch',
   DATE: 'date',
-  TEXT_AREA: 'TEXT_AREA',
+  TEXT_AREA: 'text_area',
   RATE: 'rate',
   RADIO: 'radio',
 } as const;

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 import Home from './modules/home/Home';
 import { AppHeader } from './ui/AppHeader';
+import Test from './modules/components/Test';
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
@@ -56,6 +57,7 @@ const App = () => {
         >
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/test' element={<Test />} />
           </Routes>
         </Content>
       </Layout>

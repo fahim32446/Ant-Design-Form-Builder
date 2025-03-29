@@ -22,7 +22,8 @@ const formSlice = createSlice({
         id: `${action.payload}-${Date.now()}`,
         type: action.payload,
         col: 12,
-        label: 'Field',
+        label: action.payload!.charAt(0).toUpperCase() + action.payload!.slice(1),
+        name: `${action.payload}-${Date.now()}`,
       };
       state.formItems.push(newItem);
       state.activeId = newItem.id;

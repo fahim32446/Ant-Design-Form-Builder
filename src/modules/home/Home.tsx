@@ -16,7 +16,7 @@ import { Card, Col, Divider, Form, Input, Row, Segmented, Typography } from 'ant
 import { useForm } from 'antd/es/form/Form';
 import { useState } from 'react';
 import { IComponentType, IFormSetting, IPreview } from '../../type/FormType.interface';
-import { FormComponents } from '../../ui/builder/FormComponents';
+import { SelectComponents } from '../../ui/builder/SelectComponents';
 import { SortableFields } from '../../ui/builder/SortableFields';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import {
@@ -67,8 +67,6 @@ const App = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    console.log({ active, over });
-
     if (active.id !== over?.id) {
       dispatch(setReorder({ activeId: active.id, overId: over?.id }));
     }
@@ -84,7 +82,7 @@ const App = () => {
       <Row gutter={[12, 12]}>
         {/* Left sidebar with components */}
         <Col xs={24} lg={3}>
-          <FormComponents handleAddComponent={handleAddComponent} />
+          <SelectComponents handleAddComponent={handleAddComponent} />
         </Col>
 
         {/* Main form building area */}

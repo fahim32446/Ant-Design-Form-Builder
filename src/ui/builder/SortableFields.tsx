@@ -16,10 +16,9 @@ import {
   Typography,
 } from 'antd';
 
+import { componentTypes, IComponentType, IPreview } from '../../type/FormType.interface';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { setActiveId } from '../../utils/redux/slice/formInformation.slice';
-import { componentTypes, IComponentType, IPreview } from '../../type/FormType.interface';
-const { Option } = Select;
 const { Text } = Typography;
 
 interface IProps {
@@ -56,11 +55,25 @@ export const SortableFields = ({ id, type, onRemove, preview }: IProps) => {
         );
       case componentTypes.SELECT:
         return (
-          <Select className={className} placeholder={placeholder} allowClear>
-            <Option value='option1'>Option 1</Option>
-            <Option value='option2'>Option 2</Option>
-            <Option value='option3'>Option 3</Option>
-          </Select>
+          <Select
+            className={className}
+            placeholder={placeholder}
+            allowClear
+            options={[
+              {
+                label: 'Option 1',
+                value: 'option-1',
+              },
+              {
+                label: 'Option 2',
+                value: 'option-2',
+              },
+              {
+                label: 'Option 3',
+                value: 'option-3',
+              },
+            ]}
+          ></Select>
         );
       case componentTypes.SWITCH:
         return <Switch className={className} />;

@@ -1,67 +1,108 @@
-// import { Col, DatePicker, Form, Input, InputNumber, Row, Select, Switch } from 'antd';
+// import {
+//   Col,
+//   DatePicker,
+//   Form,
+//   Input,
+//   InputNumber,
+//   Row,
+//   Select,
+//   Switch,
+//   Radio,
+//   Rate,
+//   Flex,
+//   Button,
+//   Card,
+// } from 'antd';
+
 // import { useForm } from 'antd/es/form/Form';
 
-// type Props = {};
-
-// const Test = () => {
+// const MyForm = () => {
 //   const [form] = useForm();
 
-//   const submit = (values) => {
+//   const submit = (values: any) => {
 //     console.log(values);
 //   };
 
 //   return (
-//     <Form form={form} onFinish={submit} layout='vertical'>
-//       <Row gutter={16}>
-//         <Col lg={18}>
-//           <Form.Item label={'Your name:'} name={'name'} required={true}>
-//             <Input placeholder='Provide your name' className={'input'} />
-//           </Form.Item>
-//         </Col>
-
-//         <Col lg={24}>
-//           <Form.Item label={'Monthly Income'} name={'income'} required={true}>
-//             <InputNumber
-//               style={{ width: '100%' }}
-//               placeholder='Provide your monthly income'
-//               className={'input'}
-//             />
-//           </Form.Item>
-//         </Col>
-
-//         <Col lg={24}>
-//           <Form.Item label={'Job type'} name={'job_type'} required={true}>
-//             <Select options={[]} placeholder='Provide your job type' className={'input'} />
-//           </Form.Item>
-//         </Col>
-
-//         <Col lg={12}>
-//           <Form.Item label={'Govt job ?'} name={'govt_job'} required={false}>
-//             <Switch />
-//           </Form.Item>
-//         </Col>
-
-//         <Col lg={12}>
-//           <Form.Item label={'10 years plus ?'} name={'10_years_plus'} required={false}>
-//             <Switch />
-//           </Form.Item>
-//         </Col>
-
-//         <Col lg={12}>
-//           <Form.Item label={'Start date'} name={'start_date'} required={true}>
-//             <DatePicker
-//               style={{ width: '100%' }}
-//               placeholder='Your job start date'
-//               className={'input'}
-//             />
-//           </Form.Item>
-//         </Col>
-//       </Row>
-//     </Form>
+//     <Card style={{ maxWidth: 950, margin: '0px auto' }}>
+//       <Form form={form} onFinish={submit} layout='vertical'>
+//         <Row gutter={16}>
+//           <Col lg={12}>
+//             <Form.Item label={'Text'} name={'text-1743270164330'}>
+//               <Input />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item
+//               label={'Number'}
+//               name={'number-1743270164792'}
+//               rules={[{ required: true, message: 'Number is required' }]}
+//             >
+//               <InputNumber style={{ width: '100%' }} />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Select'} name={'select-1743270165832'}>
+//               <Select
+//                 options={[
+//                   {
+//                     label: 'Option 1',
+//                     value: 'option-1',
+//                   },
+//                   {
+//                     label: 'Option 2',
+//                     value: 'option-2',
+//                   },
+//                   {
+//                     label: 'Option 3',
+//                     value: 'option-3',
+//                   },
+//                 ]}
+//               />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Switch'} name={'switch-1743270166408'}>
+//               <Switch />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Date'} name={'date-1743270166872'}>
+//               <DatePicker style={{ width: '100%' }} />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Rate'} name={'rate-1743270167328'}>
+//               <Rate />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Text_area'} name={'text_area-1743270167760'}>
+//               <Input.TextArea />
+//             </Form.Item>
+//           </Col>
+//           <Col lg={12}>
+//             <Form.Item label={'Radio'} name={'radio-1743270168208'}>
+//               <Radio.Group
+//                 options={[
+//                   { value: 'option-1', label: 'Option-1' },
+//                   { value: 'option-2', label: 'Option-2' },
+//                   { value: 'option-3', label: 'Option-3' },
+//                 ]}
+//               />
+//             </Form.Item>
+//           </Col>
+//         </Row>
+//         <Flex justify='end'>
+//           <Button htmlType='submit' type='primary'>
+//             Submit
+//           </Button>
+//         </Flex>
+//       </Form>
+//     </Card>
 //   );
 // };
-
-// export default Test;
+// export default MyForm;
 
 const Test = () => {
   return <div>Test</div>;
