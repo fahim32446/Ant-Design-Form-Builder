@@ -31,6 +31,9 @@ export const componentTypes = {
   SELECT: 'select',
   SWITCH: 'switch',
   DATE: 'date',
+  TEXT_AREA: 'TEXT_AREA',
+  RATE: 'rate',
+  RADIO: 'radio',
 } as const;
 
 export type IComponentType = (typeof componentTypes)[keyof typeof componentTypes];

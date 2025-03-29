@@ -1,4 +1,4 @@
-import { Button, Card, Space } from 'antd';
+import { Button, Card, Row, Space } from 'antd';
 import { componentTypes, IComponentType } from '../../type/FormType.interface';
 
 interface IProps {
@@ -8,23 +8,72 @@ interface IProps {
 export const FormComponents = ({ handleAddComponent }: IProps) => {
   return (
     <Card title='Components' size='small'>
-      <Space direction='vertical'>
-        <Button block onClick={() => handleAddComponent(componentTypes.TEXT)}>
-          Text Input
+      <Row gutter={[12, 12]} style={{ padding: 10 }}>
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.TEXT)}
+        >
+          Text input
         </Button>
-        <Button block onClick={() => handleAddComponent(componentTypes.NUMBER)}>
-          Number Input
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.TEXT_AREA)}
+        >
+          Text area
         </Button>
-        <Button block onClick={() => handleAddComponent(componentTypes.SELECT)}>
-          Select Dropdown
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.NUMBER)}
+        >
+          Number input
         </Button>
-        <Button block onClick={() => handleAddComponent(componentTypes.SWITCH)}>
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.SELECT)}
+        >
+          Select
+        </Button>
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.SWITCH)}
+        >
           Switch
         </Button>
-        <Button block onClick={() => handleAddComponent(componentTypes.DATE)}>
-          Date Picker
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.DATE)}
+        >
+          Date picker
         </Button>
-      </Space>
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.RATE)}
+        >
+          Rating
+        </Button>
+        <Button
+          style={{ background: 'rgb(60, 179, 113, 0.5)' }}
+          variant='solid'
+          block
+          onClick={() => handleAddComponent(componentTypes.RADIO)}
+        >
+          Radio
+        </Button>
+      </Row>
     </Card>
   );
 };

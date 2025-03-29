@@ -8,6 +8,8 @@ import {
   Form,
   Input,
   InputNumber,
+  Radio,
+  Rate,
   Select,
   Space,
   Switch,
@@ -66,6 +68,20 @@ export const SortableFields = ({ id, type, onRemove, preview }: IProps) => {
         return (
           <DatePicker className={className} style={{ width: '100%' }} placeholder={placeholder} />
         );
+      case componentTypes.TEXT_AREA:
+        return <Input.TextArea placeholder={placeholder} className={className} rows={3} />;
+      case componentTypes.RATE:
+        return <Rate className={className} />;
+      case componentTypes.RADIO:
+        return (
+          <Radio.Group
+            options={[
+              { value: 'option-1', label: 'Option-1' },
+              { value: 'option-2', label: 'Option-2' },
+              { value: 'option-3', label: 'Option-3' },
+            ]}
+          />
+        );
       default:
         return null;
     }
@@ -73,7 +89,7 @@ export const SortableFields = ({ id, type, onRemove, preview }: IProps) => {
 
   if (preview === 'PREVIEW')
     return (
-      <Col lg={col}>
+      <Col span={col}>
         <Form.Item required={required} label={label || 'Field'} name={name}>
           {renderFormComponent()}
         </Form.Item>
@@ -86,7 +102,7 @@ export const SortableFields = ({ id, type, onRemove, preview }: IProps) => {
   };
 
   return (
-    <Col lg={col}>
+    <Col span={col}>
       <div ref={setNodeRef} style={style}>
         <Card
           styles={{

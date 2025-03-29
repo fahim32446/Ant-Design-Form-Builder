@@ -14,7 +14,7 @@ const marks: SliderSingleProps['marks'] = {
   24: '24',
 };
 
-const FormInputOption = () => {
+const FieldSetting = () => {
   const dispatch = useAppDispatch();
   const formItems = useAppSelector((state) => state.filed.formItems);
   const activeId = useAppSelector((state) => state.filed.activeId);
@@ -58,7 +58,7 @@ const FormInputOption = () => {
         layout='vertical'
       >
         <Row gutter={[12, 0]}>
-          <Col lg={24}>
+          <Col xs={24} md={24} lg={24}>
             <Form.Item<IOptionSubmit> label='Adjust field size:' name={'col'} initialValue={12}>
               <Slider marks={marks} min={4} max={24} step={2} />
             </Form.Item>
@@ -102,4 +102,4 @@ const FormInputOption = () => {
   );
 };
 
-export default FormInputOption;
+export default FieldSetting;

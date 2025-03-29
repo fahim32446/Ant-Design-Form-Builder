@@ -25,7 +25,7 @@ import {
   setReorder,
 } from '../../utils/redux/slice/formInformation.slice';
 import Code from '../components/Code';
-import FormInputOption from '../components/FormInputOption';
+import FieldSetting from '../components/FieldSetting';
 import FormSetting from '../components/FormSetting';
 
 const { Title, Text } = Typography;
@@ -81,14 +81,14 @@ const App = () => {
       <Title level={2}>Form Builder</Title>
       <Divider />
 
-      <Row gutter={12}>
+      <Row gutter={[12, 12]}>
         {/* Left sidebar with components */}
-        <Col span={3}>
+        <Col xs={24} lg={3}>
           <FormComponents handleAddComponent={handleAddComponent} />
         </Col>
 
         {/* Main form building area */}
-        <Col span={15}>
+        <Col lg={15}>
           <Card
             size='small'
             title={
@@ -157,9 +157,9 @@ const App = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col lg={6}>
           <Card size='small' title='Customize your form'>
-            {activeId ? <FormInputOption /> : undefined}
+            {activeId ? <FieldSetting /> : undefined}
             <FormSetting setFormSetting={setFormSetting} formSetting={formSetting} />
           </Card>
         </Col>
